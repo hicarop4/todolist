@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 //components
@@ -22,11 +22,20 @@ const theme = createTheme({
 });
 
 function App() {
-  const [taskList, setTaskList] = useState<ITask[]>([]);
+  // get taskList for localStorage or empty array []
+  const taskListStorage =
+    JSON.parse(localStorage.getItem("TASK_LIST") || "") || [];
+
+  const [taskList, setTaskList] = useState<ITask[]>(taskListStorage);
   const [taskToUpdate, setTaskToUpdate] = useState<ITask | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("TASK_LIST", JSON.stringify(taskList));
+  }, [taskList]);
 
   const deleteTask = (id: number) => {
     setTaskList(taskList.filter((task) => task.id !== id));
+    localStorage.setItem("TASK_LIST", JSON.stringify(taskList));
   };
 
   const toggleModal = (display: boolean) => {

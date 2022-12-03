@@ -29,14 +29,6 @@ const TaskForm = ({
   const titleRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    const taskStorage = localStorage.getItem("TASK_LIST");
-    if (!taskStorage || !setTaskList) {
-      return;
-    }
-    setTaskList(JSON.parse(taskStorage));
-  }, []);
-
-  useEffect(() => {
     if (task) {
       setId(task.id);
       setTitle(task.title);
