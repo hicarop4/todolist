@@ -23,10 +23,15 @@ const theme = createTheme({
 
 function App() {
   // get taskList for localStorage or empty array []
-  const taskListStorage =
-    JSON.parse(localStorage.getItem("TASK_LIST") || "") || [];
-
-  const [taskList, setTaskList] = useState<ITask[]>(taskListStorage);
+  useEffect(() => {
+    console.log("teste");
+    const jsonTasks = localStorage.getItem("TASK_LIST");
+    if (jsonTasks) {
+      const taskListStorage = JSON.parse(jsonTasks);
+      setTaskList(taskListStorage);
+    }
+  }, []);
+  const [taskList, setTaskList] = useState<ITask[]>([]);
   const [taskToUpdate, setTaskToUpdate] = useState<ITask | null>(null);
 
   useEffect(() => {

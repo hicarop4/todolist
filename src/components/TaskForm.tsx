@@ -3,14 +3,13 @@ import { useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
 //interface
 import { ITask } from "../interfaces/ITask";
 
 type Props = {
   btnText: string;
-  taskList: ITask[];
-  setTaskList?: React.Dispatch<React.SetStateAction<ITask[]>>;
+  taskList: ITask[] | undefined;
+  setTaskList?: React.Dispatch<React.SetStateAction<ITask[]>> | undefined;
   task?: ITask | null;
   handleUpdate?(id: number, title: string, difficulty: number | ""): void;
 };
@@ -46,16 +45,16 @@ const TaskForm = ({
     }
     if (handleUpdate) {
       handleUpdate(id, title, difficulty);
-      toast.success("Tarefa atualizada.");
+      // tarefa atualizada
     } else {
       // gerando id aleatorio
       const randomId = Math.floor(Math.random() * 1000);
       const newTask: ITask = { id: randomId, title, difficulty };
-      setTaskList!([...taskList, newTask]);
+      setTaskList!((oldTasks) => [...oldTasks, newTask]);
       setTitle("");
       setDifficulty("");
       localStorage.setItem("TASK_LIST", JSON.stringify(taskList));
-      toast.success("Tarefa criada.");
+      //tarefa criada
     }
 
     titleRef.current?.focus();
@@ -102,19 +101,6 @@ const TaskForm = ({
         className="text-gray-100  text-lg normal-case py-2 w-full"
         variant="contained"
       >
-        <Toaster
-          toastOptions={{
-            // Define default options
-            className: "",
-            duration: 3000,
-            style: {
-              background: "rgb(243 244 246)",
-              letterSpacing: "normal",
-            },
-          }}
-          position="top-right"
-          reverseOrder={false}
-        />
         {btnText}
       </Button>
     </form>
