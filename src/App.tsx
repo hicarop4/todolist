@@ -24,7 +24,6 @@ const theme = createTheme({
 function App() {
   // get taskList for localStorage or empty array []
   useEffect(() => {
-    console.log("teste");
     const jsonTasks = localStorage.getItem("TASK_LIST");
     if (jsonTasks) {
       const taskListStorage = JSON.parse(jsonTasks);
