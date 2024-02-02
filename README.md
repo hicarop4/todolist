@@ -1,5 +1,5 @@
-# TodoList
-Lista ToDo usando Typescript e React. 
+# Lista de Tarefas
+Lista de Tarefas usando Typescript e React. 
 ## Frameworks e bibliotecas utilizadas:
 - Vite(React + TS)
 - Tailwind CSS 
